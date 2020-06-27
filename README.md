@@ -5,7 +5,7 @@ In this repository, I developed a RestFul API with Asp .Net Core technology. In 
 
 AutoMapper, karmaşık bir sournu çözmek için tasarlanmış basit ve küçük bir kütüphanedir. Temelde üstlendiği görev gayet yalındır, bir nesneyi diğer bir nesne ile eşleyen koddan kurtulmak için tercih ettiğimiz bir yapıdır. Bu tür bir eşleşme kodunu yazmak oldukça zahmetli ve sıkıcıdır, örneğin 2 ayrı tabloda tutuğumuz category ve product bilgilerini getirmek istiyoruz. Bu işlemi yerine getirebilmek için bir veri taransfer nesnesi (DTO)  oluşturduğumuzu ve ihtiyacımızı karşılayacak özellikleri burada hayata geçirdiğimizi düşünelim. Bu senaryoda yapmamız gereken diğer bir işlem ise Linq to Entitiy sorgusu yazmak ve ihtiyacımız olan alanlar ile DTO'muzdaki alanları birbirlerine eşitlememiz gerekmektedir. Burada işlem kulağa gayet basit gelebilir özellikle örneğini verdiğimiz senaryoda lakin yaptığımız işler büyüdükçe select kısmında elle tek tek yazacağımız kodlarda yapılan iş ile eş zamanlı olarak büyükmektedir ve bu işlem epey zahmetli olacak ve kod okunabilirliği zafiyeti oluşarak, sorgu anlaşılabilirliği kaybolacaktır. Bu gibi durumlarda yapılan işeleme özel Data Transfer Object'leri yazıp bu objeleri entity'lerimiz ile automap aracı ile mapping işlemini yaparak işlerimizi kolaylaştırabilriz. <br>
 
-** AutoMapper Implemantation:**
+**AutoMapper Implemantation:**
 1. İlk önce Nuget Package Mager aracılığı ile ihtiyaç duyulan paketleri yükelyelim: <br>
   1.1. AutoMapper - Version: 9.0.0 <br>
   1.2. AutoMapper.Extensions.Microsoft.DependencyInjection - Version: 7.0.0 <br>
