@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RestFul_API.Infrastructure.Context;
+using RestFul_API.Infrastructure.Mapper;
 using RestFul_API.Infrastructure.Repository.Abstract;
 using RestFul_API.Infrastructure.Repository.Concrete;
 
@@ -34,6 +36,8 @@ namespace RestFul_API
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IAppRepository, EfAppRepository>();
+
+            services.AddAutoMapper(typeof(CategoryMapping));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
