@@ -12,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RestFul_API.Infrastructure.Context;
+using RestFul_API.Infrastructure.Repository.Abstract;
+using RestFul_API.Infrastructure.Repository.Concrete;
 
 namespace RestFul_API
 {
@@ -30,6 +32,8 @@ namespace RestFul_API
             services.AddControllers();
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped<IAppRepository, EfAppRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

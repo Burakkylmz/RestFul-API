@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace RestFul_API.Infrastructure.Entities.Concrete
 {
-    public class Category
+    public class Category:KernelEntity
     {
         public string Name { get; set; }
         public string Description { get; set; }
