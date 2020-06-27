@@ -23,7 +23,7 @@ namespace RestFul_API.Infrastructure.Repository.Concrete
             return Save();
         }
 
-        public bool DeleteCategory(Category categoryObj)
+        public bool DeleteCategory(Guid id)
         {
             _context.Categories.Remove(categoryObj);
             return Save();
@@ -54,7 +54,7 @@ namespace RestFul_API.Infrastructure.Repository.Concrete
             return _context.SaveChanges() >= 0 ? true : false;
         }
 
-        public bool UpdateCategory(Category categoryObj)
+        public bool UpdateCategory(Guid id)
         {
             _context.Categories.Update(categoryObj);
             return Save();

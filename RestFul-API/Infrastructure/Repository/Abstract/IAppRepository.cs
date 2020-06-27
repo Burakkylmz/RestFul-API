@@ -13,8 +13,8 @@ namespace RestFul_API.Infrastructure.Repository.Abstract
         bool CategoryExists(Guid id);
         bool CategoryExists(string categoryName);
         bool CreateCategory(Category categoryObj);
-        bool UpdateCategory(Category categoryObj);
-        bool DeleteCategory(Category categoryObj);
+        bool UpdateCategory(Guid id);
+        bool DeleteCategory(Guid id);
         bool Save();
     }
 }
