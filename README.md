@@ -13,6 +13,7 @@ AutoMapper, karmaşık bir sournu çözmek için tasarlanmış basit ve küçük
 2. Yapmak istediğimiz işlemde ihtiyacımız olan alanları karşıalmak üzere bir DTO nesnesi oluşturuşlur.
 3. Mimaride uygun bir yere *"Mapper"* klasörü açılır.
 4. Açılan "Mapper" klasörünün altına ise ilgili entityNameMapping.cs file açılır ve bu class içerisinde mapping işlemi gerçekleştirilir.
+5. Son olarak yapılan Mapping işlemi middleware oalrak eklenir.
 
 *Doc:* https://automapper.org
 
