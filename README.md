@@ -13,7 +13,7 @@ Swagger: eliştiriciler için RestFul web hizmetlerini tasarlamasına, oluşturm
 
 3. API'ler İçin Dokümantasyon: Bir API için OpenApı belgesi tanımlandığındai Swagger açık kaynak aracı,i Swagger kullanıcı arayüzü üzerinden API ile doğrudan etkileşim kurmak için kullanılır. Html tabanlı bir kullanıcı arabirimi aracılığı iloe doğudan canlı API'lere bağlantı kurulmasını sağlar. Client istekleri doğrudan Swagger UI üzerinden gerçekeştirebilir.
 
-Swagger Aracını Nuget Package Manager yada GitHub üzerinden erişebilir ve projenize entegre edebilirilsniz.
-Github Link: https://github.com/swagger-api/swagger-ui
-Nuget Package Name: Swashbuckle.AspNetCore
-Doc: https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-3.1&tabs=visual-studio
+Swagger Aracını Nuget Package Manager yada GitHub üzerinden erişebilir ve projenize entegre edebilirilsniz. <br>
+Github Link: https://github.com/swagger-api/swagger-ui <br>
+Nuget Package Name: Swashbuckle.AspNetCore <br>
+Doc: https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-3.1&tabs=visual-studio <br>
