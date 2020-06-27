@@ -11,5 +11,6 @@ namespace RestFul_API.Infrastructure.Context
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         public DbSet<Category> Categories { get; set; }
+        public DbSet<AppUser> Users { get; set; }
     }
 }
