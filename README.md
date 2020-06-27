@@ -95,3 +95,101 @@ Swagger: eliştiriciler için RestFul web hizmetlerini tasarlamasına, oluşturm
 *Github Link:* https://github.com/swagger-api/swagger-ui <br>
 *Nuget Package Name:* Swashbuckle.AspNetCore <br>
 *Doc:* https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-3.1&tabs=visual-studio <br>
+
+## Json Web Token (Jwt)
+
+JSON Web Token (JWT), taraflar arasında bilgileri JSON nesnesi olarak güvenli bir şekilde iletmenin kompakt ve bağımsız bir yolunu tanımlayan açık bir standarttır (RFC 7519). Bu bilgiler dijital olarak imzalandığından doğrulanabilir ve güvenilebilirdir. JWT'ler bir secret (HMAC algoritması ile) veya RSA veya ECDSA kullanılarak bir genel / özel anahtar çifti kullanılarak imzalanabilir.
+
+JWT'ler taraflar arasında gizlilik sağlamak için şifrelenebilse de, bu uygulamada imzalı tokenlere odaklanacağız ve onları authentication esnasında üreteceğiz. İmzalı belirteçler, içerdiği istemlerin bütünlüğünü doğrularken, şifreli belirteçler bu talepleri diğer taraflardan gizler. Belirteçler genel / özel anahtar çiftleri kullanılarak imzalandığında, imza yalnızca özel anahtarı tutan tarafın onu imzalayan taraf olduğunu da onaylar. 
+
+#### Jwt Implementation
+
+1. AppSettings.cs açılır.
+
+        public class AppSettings
+        {
+            public string SecretKey { get; set; }
+        }
+        
+2. appsettings.json dosyasına aşağıdaki kod bloğunu ekleyin
+
+          "AppSettings": { "SecretKey": "This is used to sign in and verify jwt tokens"}
+
+3. Startup.cs dosyası altında bulunan ConfigureService metodunu içerisinde gerekli düzenlemeleri yapın
+
+          var appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSection);
+
+            var appSettings = appSettingsSection.Get<AppSettings>();
+            var key = Encoding.ASCII.GetBytes(appSettings.SecretKey);
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = true;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateAudience = false,
+                    ValidateIssuer = false
+                };
+            });
+ 4. Son olarak Swagger UI üzerinde kullandığımız security bilgilerinin gözükmesi ve gerekli açıklamaların API kullanıcılarına dokümantre edilmesi için aşağıdaki kodları *"AddSwaggerGen()"* middleware ekleyin. Bu middleware üzerinde bazı eklendiler Swagger implemantation esnasında yapmıştık. Şİmdi son halini vereceğiz.
+ 
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("RestFulAPISpec", new OpenApiInfo()
+                {
+                    Title = "Restful API",
+                    Version = "V.1",
+                    Description = "Restful API",
+                    Contact = new OpenApiContact()
+                    {
+                        Email = "burak.yilmaz@bilgeadam.com",
+                        Name = "Burak Yilmaz",
+                        Url = new Uri("https://github.com/Burakkylmz"),
+                    },
+                    License = new OpenApiLicense()
+                    {
+                        Name = "MIT License",
+                        Url = new Uri("https://en.wikipedia.org/wiki/MIT_License")
+                    }
+                });
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "JWT Autherization header using Bearer scheme",
+                    Name = "Autharization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Brear"
+                });
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                            Scheme = "oauth 2.0",
+                            Name = "bearer",
+                            In = ParameterLocation.Header
+                        },
+                        new List<string>()
+                    }
+                });
+
+                var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlCommnetFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
+                options.IncludeXmlComments(xmlCommnetFullPath);
+            });
+ 
+*Doc:* https://jwt.io/introduction/
