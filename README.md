@@ -12,9 +12,31 @@ AutoMapper, karmaşık bir sournu çözmek için tasarlanmış basit ve küçük
   1.2. AutoMapper.Extensions.Microsoft.DependencyInjection - Version: 7.0.0 <br>
 1. Models altına bir *"Dtos"* klasörü açılır.
 2. Yapmak istediğimiz işlemde ihtiyacımız olan alanları karşıalmak üzere bir DTO nesnesi oluşturuşlur.
+
+    public class CategoryDto
+    {
+        [Required]
+        public Guid Id { get; set; }
+        [Required]
+        public string Name { get; set; }
+        [Required]
+        public string Description { get; set; }
+    }
+
 3. Mimaride uygun bir yere *"Mapper"* klasörü açılır.
-4. Açılan "Mapper" klasörünün altına ise ilgili entityNameMapping.cs file açılır ve bu class içerisinde mapping işlemi gerçekleştirilir.
+4. Açılan "Mapper" klasörünün altına ise ilgili entityNameMapping.cs file açılır ve bu class içerisinde mapping işlemi gerçekleştirilir. *Dikkat: Açılan bu sınıf "Profile" sınıfıyla extend edilir.* Aşağıdaki kod bloğunu inceleyiniz:
+
+    public class CategoryMapping:Profile
+    {
+        public CategoryMapping()
+        {
+            CreateMap<Category, CategoryDto>().ReverseMap();
+        }
+    }
+
 5. Son olarak yapılan Mapping işlemi middleware oalrak eklenir.
+
+    services.AddAutoMapper(typeof(CategoryMapping));
 
 *Doc:* https://automapper.org
 
